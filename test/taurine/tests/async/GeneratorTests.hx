@@ -9,6 +9,18 @@ class GeneratorTests {
 	public function new() {
 
 	}
+	
+	public function test_clock() {
+		var clock = test( {
+			@yield 'tick';
+			@yield 'tock';
+		} );
+		
+		Assert.isTrue(clock.hasNext());
+		Assert.same('tick', clock.next());
+		Assert.isTrue(clock.hasNext());
+		Assert.same('tock', clock.next());
+	}
 
 	public function test_basic()
 	{

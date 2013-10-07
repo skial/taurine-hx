@@ -103,7 +103,7 @@ class Generator
 		function lookScope(s:String) {for (i in -scope.length...0) if (scope[-i-1].exists(s)) return scope[-i-1].get(s);return null;}
 		function mkvar(i:String, ?t)
 		{
-			var id = vid++, name = 'v%$id%$i';
+			var id = vid++, name = 'v_$id$i';
 			curState.declared.set(i, true);
 			curScope.set(i, name);
 			typesMap.set(name,t);
@@ -137,7 +137,7 @@ class Generator
 				var needType = false;
 				//we need the var name in order to set onResult (in case the expression is complex)
 				//however it can't be added to the scope just yet, as it only takes effect in the end of the scope
-				var i = v.name, id = vid++, name = 'v%$id%$i';
+				var i = v.name, id = vid++, name = 'v_$id$i';
 				curState.declared.set(i, true);
 
 				var expr = null, wasCalled = false;
@@ -591,7 +591,7 @@ class Generator
 			objdecl.push({ field: "hasNext", expr: macro function() $sw });
 			objdecl.push({ field: "next", expr: macro function() return $selfref.__ret__ });
 			e = { expr: EObjectDecl(objdecl), pos: e.pos };
-			e = macro (cast $e : Iterator<Dynamic>);
+			//e = macro (cast $e : Iterator<Dynamic>);
 		}
 		trace(toString(e));
 
